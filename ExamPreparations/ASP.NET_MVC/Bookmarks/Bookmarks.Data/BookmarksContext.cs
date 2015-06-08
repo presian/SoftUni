@@ -28,15 +28,15 @@
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Votes);
 
-            modelBuilder.Entity<Vote>()
-                .HasRequired(v => v.User)
-                .WithMany()
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Vote>()
-                .HasRequired(v => v.Bookmark)
-                .WithMany()
-                .WillCascadeOnDelete(false);
+//            modelBuilder.Entity<Vote>()
+//                .HasRequired(v => v.User)
+//                .WithMany()
+//                .WillCascadeOnDelete(false);
+//
+//            modelBuilder.Entity<Vote>()
+//                .HasRequired(v => v.Bookmark)
+//                .WithMany()
+//                .WillCascadeOnDelete(false);
 
             base.OnModelCreating(modelBuilder);
 //

@@ -1,13 +1,12 @@
 namespace Bookmarks.Data.Migrations
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Data.Entity.ModelConfiguration.Conventions;
     using System.Linq;
+
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+
     using Models;
 
     internal sealed class BookmarksMigrationConfiguration : DbMigrationsConfiguration<BookmarksContext>
@@ -83,24 +82,30 @@ namespace Bookmarks.Data.Migrations
             {
                 var pesho = context.Users.FirstOrDefault(u => u.Email == "pesho@abv.bg");
                 var gosho = context.Users.FirstOrDefault(u => u.Email == "gosho@abv.bg");
+
+                var firsComment = new Comment
+                {
+                    Author = gosho,
+                    Text = "AAAAeeee beee"
+                };
+
+                var secondComment = new Comment
+                {
+                    Author = pesho,
+                    Text = "E neeeee beee"
+                };
+
+               
                 context.Bookmarks.Add(new Bookmark
                 {
                     Category = context.Categories.FirstOrDefault(c => c.Name == "C#"),
                     User = pesho,
                     Comments = new List<Comment>
                     {
-                        new Comment
-                        {
-                            Author = gosho,
-                            Text = "AAAAeeee beee"
-                        },
-                        new Comment
-                        {
-                            Author = pesho,
-                            Text = "E neeeee beee"
-                        }
-
+                        firsComment,
+                        secondComment
                     },
+
                     Title = "New in C#",
                     Url = "www.msdn.com",
                     Votes = new List<Vote>
@@ -111,7 +116,8 @@ namespace Bookmarks.Data.Migrations
                         }, 
                         new Vote
                         {
-                           User = gosho 
+                           User = gosho,
+                           
                         }
                     }
                 });
@@ -122,17 +128,8 @@ namespace Bookmarks.Data.Migrations
                     User = gosho,
                     Comments = new List<Comment>
                     {
-                        new Comment
-                        {
-                            Author = gosho,
-                            Text = "AAAAeeee beee"
-                        },
-                        new Comment
-                        {
-                            Author = pesho,
-                            Text = "E neeeee beee"
-                        }
-
+                        firsComment,
+                        secondComment
                     },
                     Title = "New in JS",
                     Url = "www.google.com",
@@ -144,7 +141,8 @@ namespace Bookmarks.Data.Migrations
                         }, 
                         new Vote
                         {
-                           User = gosho 
+                           User = gosho,
+                           
                         }
                     }
                 });
