@@ -9,7 +9,7 @@
     using Models;
     using Repository;
 
-    class BookmarksData : IBookmarksData
+    public class BookmarksData : IBookmarksData
     {
         private readonly DbContext dbContext;
 

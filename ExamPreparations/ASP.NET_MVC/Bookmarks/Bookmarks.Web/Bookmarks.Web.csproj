@@ -160,9 +160,15 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\User\Controllers\HomeController.cs" />
+    <Compile Include="Areas\User\Models\DisplayModels\BookmarkDisplayModel.cs" />
+    <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Extensions\NotificationExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -180,6 +186,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\User\Views\web.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\User\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\User\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\User\Views\Home\Index.cshtml" />
+    <Content Include="Areas\User\Views\Shared\DisplayTemplates\BookmarkDisplayModel.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -227,9 +239,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\User\Models\EditorModels\" />
+    <Folder Include="Areas\User\Views\Shared\EditorTemplates\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -246,6 +265,14 @@
     <ProjectReference Include="..\Bookmarks.Models\Bookmarks.Models.csproj">
       <Project>{EB4C043C-5D99-40FD-9BDC-66FDF6C7F0C4}</Project>
       <Name>Bookmarks.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bookmarks.Repository\Bookmarks.Repository.csproj">
+      <Project>{C9A7D60B-B073-45BD-AFF9-2B7E4B7EA2BB}</Project>
+      <Name>Bookmarks.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bookmarks.UnitOfWork\Bookmarks.UnitOfWork.csproj">
+      <Project>{382EA65F-D7A2-4321-8664-67C0F3060A56}</Project>
+      <Name>Bookmarks.UnitOfWork</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

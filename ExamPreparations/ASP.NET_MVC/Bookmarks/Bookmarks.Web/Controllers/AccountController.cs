@@ -1,18 +1,19 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Bookmarks.Web.Models;
-
-namespace Bookmarks.Web.Controllers
+﻿namespace Bookmarks.Web.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
+
     using Bookmarks.Models;
+
+    using Extensions;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+
+    using Models;
 
     [Authorize]
     public class AccountController : Controller
@@ -77,18 +78,32 @@ namespace Bookmarks.Web.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await this.SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await this.SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+                    this.AddNotification("User login successfully!", NotificationType.INFO);
+                    if (returnUrl == "/")
+                    {
+                        if (this.User.IsInRole("Administrator"))
+                        {
+                            return this.RedirectToAction("Index", "Home", new { area = "Admin" });
+                        }
+
+                        return this.RedirectToAction("Index", "Home", new {area = "User"});
+                    }
+
                     return this.RedirectToLocal(returnUrl);
+
                 case SignInStatus.LockedOut:
+                    this.AddNotification("User login error!", NotificationType.ERROR);
                     return this.View("Lockout");
                 case SignInStatus.RequiresVerification:
                     return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     this.ModelState.AddModelError("", "Invalid login attempt.");
+                    this.AddNotification("Invalid login data!", NotificationType.ERROR);
                     return this.View(model);
             }
         }
@@ -153,7 +168,7 @@ namespace Bookmarks.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.UserName, Email = model.Email };
                 var result = await this.UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -164,15 +179,17 @@ namespace Bookmarks.Web.Controllers
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    this.AddNotification("User registered!", NotificationType.INFO);
 
-                    return this.RedirectToAction("Index", "Home");
+                    return this.RedirectToAction("Index", "Home", new { area = "User" });
                 }
 
                 this.AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            this.AddNotification("Invalid regitration data!", NotificationType.ERROR);
+            return this.View(model);
         }
 
         //
@@ -182,10 +199,10 @@ namespace Bookmarks.Web.Controllers
         {
             if (userId == null || code == null)
             {
-                return View("Error");
+                return this.View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+            var result = await this.UserManager.ConfirmEmailAsync(userId, code);
+            return this.View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         //
@@ -193,7 +210,7 @@ namespace Bookmarks.Web.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
-            return View();
+            return this.View();
         }
 
         //
@@ -203,13 +220,13 @@ namespace Bookmarks.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
+            if (this.ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                var user = await this.UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await this.UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    return this.View("ForgotPasswordConfirmation");
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -229,7 +246,7 @@ namespace Bookmarks.Web.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
-            return View();
+            return this.View();
         }
 
         //

@@ -1,0 +1,12 @@
+﻿@model Bookmarks.Web.Areas.User.Models.DisplayModels.BookmarkDisplayModel
+
+
+<div class="col-md-4">
+    <h4>@Model.Title</h4>
+    @if (@Model.Description != null)
+    {
+        <p>@Model.Description</p>
+    }
+    
+    <a class="btn btn-default">Details</a>
+</div>

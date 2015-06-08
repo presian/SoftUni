@@ -8,6 +8,7 @@
         public Bookmark()
         {
             this.Comments = new List<Comment>();
+            this.Votes = new List<Vote>();
         }
 
         [Key]
