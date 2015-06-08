@@ -1,30 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace Bookmarks.Web.Controllers
+﻿namespace Bookmarks.Web.Controllers
 {
-    public class HomeController : Controller
+    using System.Linq;
+    using System.Web.Mvc;
+    using Areas.User.Models.DisplayModels;
+    using Data;
+    using UnitOfWork;
+
+    [AllowAnonymous]
+    public class HomeController : BaseController
     {
+        public HomeController() 
+            : this(new BookmarksData(new BookmarksContext()))
+        {
+        }
+
+        public HomeController(IBookmarksData data)
+            : base(data)
+        {
+        }
+
         public ActionResult Index()
         {
-            return View();
+            if (this.IsAdmin())
+            {
+                return this.RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return this.RedirectToAction("Index", "Home", new {area = "User"});
+            }
+
+            // Display first 6 
+            var bookmarks = this.Data.Bookmarks.All()
+                .OrderByDescending(b => b.Votes.Count)
+                .ThenBy(b => b.Id)
+                .Take(6)
+                .Select(BookmarkDisplayModel.ViewModel);
+
+            this.ViewBag.Area = "";
+
+            return this.View(bookmarks);
         }
 
-        public ActionResult About()
+        public ActionResult SeeAll()
         {
-            ViewBag.Message = "Your application description page.";
+            if (this.IsAdmin())
+            {
+                return this.RedirectToAction("SeeAll", "Home", new { area = "Admin" });
+            }
 
-            return View();
-        }
+            if (this.User.Identity.IsAuthenticated)
+            {
+                return this.RedirectToAction("SeeAll", "Home", new { area = "User" });
+            }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+            var bookmarks = this.Data.Bookmarks.All()
+                .OrderByDescending(b => b.Votes.Count)
+                .ThenBy(b => b.Id)
+                .Select(BookmarkDisplayModel.ViewModel);
 
-            return View();
+            this.ViewBag.Area = "";
+
+            return this.View(bookmarks);
         }
     }
 }

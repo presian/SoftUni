@@ -179,6 +179,8 @@
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    this.UserManager.AddToRole(user.Id, "RegularUser");
+                    
                     this.AddNotification("User registered!", NotificationType.INFO);
 
                     return this.RedirectToAction("Index", "Home", new { area = "User" });
@@ -411,8 +413,9 @@
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            this.AuthenticationManager.SignOut();
+            this.AddNotification("Logout successfuly!", NotificationType.INFO);
+            return this.RedirectToAction("Index", "Home");
         }
 
         //
@@ -420,7 +423,7 @@
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
-            return View();
+            return this.View();
         }
 
         protected override void Dispose(bool disposing)

@@ -17,7 +17,8 @@ namespace Bookmarks.Web.Areas.User
             context.MapRoute(
                 "User_default",
                 "User/{controller}/{action}/{id}",
-                new {controller = "Home", action = "Index", id = UrlParameter.Optional }
+                new {controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "Bookmarks.Web.Areas.User.Controllers" }
             );
         }
     }

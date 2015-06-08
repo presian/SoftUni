@@ -17,7 +17,7 @@ namespace Bookmarks.Web
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new[] { "Bookmarks.Web.Areas.User.Controllers" }
+                namespaces: new[] { "Bookmarks.Web.Controllers" }
             );
         }
     }

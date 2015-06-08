@@ -1,9 +1,6 @@
 ﻿namespace Bookmarks.Web.Controllers
 {
     using System.Web.Mvc;
-
-    using Microsoft.Ajax.Utilities;
-
     using UnitOfWork;
 
     public abstract class BaseController : Controller

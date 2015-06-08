@@ -1,0 +1,16 @@
+﻿@using Bookmarks.Web.Areas.User.Models.DisplayModels
+@model BookmarkDisplayModel
+
+
+<div class="col-md-4">
+    <h4>@Model.Title</h4>
+    @if (@Model.Description != null)
+    {
+        <p>@Model.Description</p>
+    }
+    
+    @if (!string.IsNullOrEmpty(this.ViewBag.Area))
+    {
+        @Html.ActionLink("Details", "Details", "Home", new {area = this.ViewBag.Area}, new {@class = "btn btn-default"})
+    }
+</div>

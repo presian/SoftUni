@@ -1,0 +1,24 @@
+﻿@using Bookmarks.Web.Areas.User.Models.DisplayModels
+@model IQueryable<BookmarkDisplayModel>
+
+
+<div class="jumbotron">
+    <h1>
+        Bookmarks
+    </h1>
+</div>
+
+<div class="row">
+    @Html.DisplayFor(b => b)
+</div>
+
+<div class="row">
+
+    <div class="col-md-offset-10">
+        @Html.ActionLink("See All...",
+            "SeeAll",
+            "Home",
+            new { area = this.ViewBag.Area },
+            new { @class = "btn btn-info" })
+    </div>
+</div>
