@@ -1,5 +1,6 @@
 ﻿namespace Bookmarks.Web.Areas.User.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Extensions;
 
@@ -26,14 +27,7 @@
                 return this.RedirectToAction("Index");
             }
 
-            return this.View(new DetailsDisplayModel
-            {
-                Ctegory = bookmark.Category.Name,
-                Description = bookmark.Description,
-                Title = bookmark.Title,
-                Id = bookmark.Id,
-                Url = bookmark.Url
-            });
+            return this.View(DetailsDisplayModel.CreateFromBookmark(bookmark));
         }
     }
 }

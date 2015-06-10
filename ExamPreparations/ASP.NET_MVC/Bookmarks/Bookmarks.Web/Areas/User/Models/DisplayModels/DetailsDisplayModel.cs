@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Linq.Expressions;
 
     using Bookmarks.Models;
@@ -20,7 +21,7 @@
 
 //        public ICollection<Vote> Votes { get; set; }
 //
-//        public ICollection<Comment> Comments { get; set; }
+        public IEnumerable<CommentDisplayModel> Comments { get; set; }
 
         public static Expression<Func<Bookmark, DetailsDisplayModel>> ViewModle
         {
@@ -32,9 +33,27 @@
                     Description = d.Description,
                     Title = d.Title,
                     Ctegory = d.Category.Name,
-                    Url = d.Url
+                    Url = d.Url,
+                    Comments = d.Comments
+                        .AsQueryable()
+                        .Select(CommentDisplayModel.ViewModel)
                 };
             }
+        }
+
+        public static DetailsDisplayModel CreateFromBookmark(Bookmark bookmark)
+        {
+            return  new DetailsDisplayModel
+            {
+                Id = bookmark.Id,
+                Description = bookmark.Description,
+                Title = bookmark.Title,
+                Ctegory = bookmark.Category.Name,
+                Url = bookmark.Url,
+                Comments = bookmark.Comments
+                    .AsQueryable()
+                    .Select(CommentDisplayModel.ViewModel)
+            };
         }
     }
 }
