@@ -187,7 +187,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sevices\BookmarkServices.cs" />
     <Compile Include="Sevices\Utilities.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -209,6 +208,7 @@
     <Content Include="Views\Shared\DisplayTemplates\BookmarkDisplayModel.cshtml" />
     <Content Include="Areas\User\Views\Home\Details.cshtml" />
     <Content Include="Areas\User\Views\Home\SeeAll.cshtml" />
+    <Content Include="Areas\User\Views\Shared\DisplayTemplates\DetailsDisplayModel.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -264,7 +264,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\User\Models\EditorModels\" />
-    <Folder Include="Areas\User\Views\Shared\DisplayTemplates\" />
     <Folder Include="Areas\User\Views\Shared\EditorTemplates\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>

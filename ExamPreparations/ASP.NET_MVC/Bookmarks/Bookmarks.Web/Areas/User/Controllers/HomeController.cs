@@ -3,6 +3,8 @@
     using System.Web.Mvc;
     using Extensions;
 
+    using Models.DisplayModels;
+
     public class HomeController : BaseUserAreaController
     {
         public ActionResult Index()
@@ -24,7 +26,14 @@
                 return this.RedirectToAction("Index");
             }
 
-            return this.View(bookmark);
+            return this.View(new DetailsDisplayModel
+            {
+                Ctegory = bookmark.Category.Name,
+                Description = bookmark.Description,
+                Title = bookmark.Title,
+                Id = bookmark.Id,
+                Url = bookmark.Url
+            });
         }
     }
 }
