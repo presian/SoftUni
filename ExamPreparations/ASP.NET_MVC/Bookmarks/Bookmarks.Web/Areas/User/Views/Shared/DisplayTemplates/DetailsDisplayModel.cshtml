@@ -16,48 +16,29 @@
     <strong>Url:</strong> <a href="@Model.Url">@Model.Url</a>
 </p>
 
-Votes: 5
-<a class="btn btn-default">+</a>
+Votes: <span id="votesCount">@Model.Votes</span>
+<button class="btn btn-default" onclick="addVote()">+</button>
 
 <h3>Comments</h3>
 
+@Html.Action("AddComment", "Home", new {area = "User"})
+
 @Html.DisplayFor(d=>d.Comments)
 
-@using (Html.BeginForm("AddComment", "Home",new {area = "User", id = Model.Id}, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
+<div id="newCommentsPlace">
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</div>
+
+<script>
+    function addVote() {
+        console.log('asdasd');
+        $.ajax({
+            type: "POST",
+            url: "/User/Home/AddVote/@Model.Id",
+            datatype: "html",
+            success: function (data) {
+                $('#votesCount').html(data);
+            }
+        });
+    }
+</script>

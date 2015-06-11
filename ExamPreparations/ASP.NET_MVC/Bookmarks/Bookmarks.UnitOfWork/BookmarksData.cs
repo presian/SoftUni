@@ -48,6 +48,11 @@
             get { return this.GetRepository<Comment>(); }
         }
 
+        public IRepository<Vote> Votes
+        {
+            get { return this.GetRepository<Vote>(); }
+        }
+
         public IRepository<Category> Categories
         {
             get { return this.GetRepository<Category>(); }

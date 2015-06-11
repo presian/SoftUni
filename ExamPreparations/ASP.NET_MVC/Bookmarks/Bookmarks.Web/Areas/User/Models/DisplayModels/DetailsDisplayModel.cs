@@ -19,8 +19,8 @@
 
         public string Url { get; set; }
 
-//        public ICollection<Vote> Votes { get; set; }
-//
+        public int Votes { get; set; }
+
         public IEnumerable<CommentDisplayModel> Comments { get; set; }
 
         public static Expression<Func<Bookmark, DetailsDisplayModel>> ViewModle
@@ -36,7 +36,8 @@
                     Url = d.Url,
                     Comments = d.Comments
                         .AsQueryable()
-                        .Select(CommentDisplayModel.ViewModel)
+                        .Select(CommentDisplayModel.ViewModel),
+                    Votes = d.Votes.Count
                 };
             }
         }

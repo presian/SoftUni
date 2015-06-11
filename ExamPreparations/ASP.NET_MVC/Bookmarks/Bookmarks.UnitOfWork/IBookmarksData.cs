@@ -17,6 +17,8 @@
 
         IRepository<Comment> Comments { get; }
 
+        IRepository<Vote> Votes { get; }
+
         IUserStore<User> UserStore { get; }
 
         void SaveChanges();

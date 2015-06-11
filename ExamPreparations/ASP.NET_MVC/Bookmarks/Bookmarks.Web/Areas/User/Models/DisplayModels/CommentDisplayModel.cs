@@ -24,5 +24,15 @@
                 };
             }
         }
+
+        public static CommentDisplayModel CreateFromComment(Comment comment)
+        {
+            return new CommentDisplayModel
+            {
+                Id = comment.Id,
+                Author = comment.Author.UserName,
+                Content = comment.Text
+            };
+        }
     }
 }
