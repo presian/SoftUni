@@ -1,5 +1,6 @@
 ﻿namespace Bookmarks.Web.Areas.User.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
 
     using Bookmarks.Models;
@@ -110,6 +111,13 @@
             this.Data.SaveChanges();
 
             return this.Content(bookmark.Votes.Count.ToString());
+        }
+
+        [HttpGet]
+        public ActionResult AddBookmark()
+        {
+
+            return this.View();
         }
     }
 }

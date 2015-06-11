@@ -53,7 +53,8 @@
                 Url = bookmark.Url,
                 Comments = bookmark.Comments
                     .AsQueryable()
-                    .Select(CommentDisplayModel.ViewModel)
+                    .Select(CommentDisplayModel.ViewModel),
+                Votes = bookmark.Votes.Count
             };
         }
     }
