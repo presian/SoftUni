@@ -1,5 +1,6 @@
 ﻿namespace Bookmarks.Web.Areas.User.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
 
@@ -116,8 +117,71 @@
         [HttpGet]
         public ActionResult AddBookmark()
         {
+            this.ViewBag.Categories = this.Data.Categories.All().Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            });
 
             return this.View();
         }
+
+        [HttpPost]
+        public ActionResult AddBookmark(BookmarkEditorModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                this.ViewBag.Categories = this.Data.Categories.All().Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                });
+
+                return this.View(model);
+            }
+
+            var userId = this.User.Identity.GetUserId();
+            var user = this.Data.Users.Find(userId);
+
+            if (user == null)
+            {
+                this.AddNotification("You must be loged in for submitting new bookmark", NotificationType.ERROR);
+                this.RedirectToAction("Login", "Account");
+            }
+
+            var category = this.Data.Categories.Find(model.CategoryId);
+            if (category == null)
+            {
+                this.AddNotification("This category is unvaible now please select another", NotificationType.ERROR);
+
+                this.ViewBag.Categories = this.Data.Categories.All().Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Name
+                });
+
+                return this.View(model);
+            }
+
+
+            var newBookmark = new Bookmark
+            {
+                User = user,
+                UserId = userId,
+                Category = category,
+                CategoryId = model.CategoryId,
+                Votes = new List<Vote>(),
+                Title = model.Title,
+                Comments = new List<Comment>(),
+                Description = model.Description,
+                Url = model.Url
+            };
+
+            this.Data.Bookmarks.Add(newBookmark);
+            this.Data.SaveChanges();
+
+            return this.RedirectToAction("Index", "Home", new {area = "User"});
+        }
+
     }
 }

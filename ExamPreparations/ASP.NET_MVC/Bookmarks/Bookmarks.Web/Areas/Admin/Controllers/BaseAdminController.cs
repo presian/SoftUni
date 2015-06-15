@@ -17,11 +17,5 @@
             : base(data)
         {
         }
-
-        // GET: Admin/BaseAdmin
-        public ActionResult Index()
-        {
-            return this.View();
-        }
     }
 }
