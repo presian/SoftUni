@@ -1,0 +1,6 @@
+Check Prime(Worst case) -> O(n)
+Check Prime(Best case) -> O(1)
+Fast Check Prime(Worst case) -> O(log n)
+First N Primes(Worst case) -> O(n log(m))
+First N Primes(Average case) -> O(n log(m))
+Primes in Range(Worst case) -> O((end - start) * log(m))

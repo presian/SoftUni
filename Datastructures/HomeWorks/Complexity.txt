@@ -1,0 +1,10 @@
+Add(T) 			-> O(n)
+Remove(index) 		-> O(n) - worst
+Remove(index)		-> O(n) - best
+Remove(index)		-> O(n) - average
+RemoveFirst()		-> O(n)
+RemoveLast()		-> O(n)
+LengthComplexity	-> O(1)
+This[index]Complexity	-> O(1)
+FirstComplexity 	-> O(1)
+LastComplexity 		-> O(1)
