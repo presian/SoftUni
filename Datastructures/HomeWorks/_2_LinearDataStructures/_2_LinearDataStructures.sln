@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_3_LongestSubsequence", "_3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_7_LinkedList", "_7_LinkedList\_7_LinkedList.csproj", "{8B5DAB87-0005-47F6-80C9-AC25C5359499}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_6_ReversedList", "_6_ReversedList\_6_ReversedList.csproj", "{08C0F7FC-9562-4268-811B-126E1C917758}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{8B5DAB87-0005-47F6-80C9-AC25C5359499}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B5DAB87-0005-47F6-80C9-AC25C5359499}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B5DAB87-0005-47F6-80C9-AC25C5359499}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08C0F7FC-9562-4268-811B-126E1C917758}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C0F7FC-9562-4268-811B-126E1C917758}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C0F7FC-9562-4268-811B-126E1C917758}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C0F7FC-9562-4268-811B-126E1C917758}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

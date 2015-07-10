@@ -46,7 +46,7 @@
         {
             foreach (var element in this.OccurenceDict.OrderBy(e => e.Key))
             {
-                Console.WriteLine($"{element.Key} -> {element.Value} times");
+                Console.WriteLine(string.Format("{0} -> {1} times", element.Key, element.Value));
             }
         }
     }

@@ -34,5 +34,10 @@
                 this.nexNode = value;
             }
         }
+
+        public override string ToString()
+        {
+            return this.NodeValue.ToString();
+        }
     }
 }
