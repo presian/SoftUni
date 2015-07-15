@@ -1,0 +1,19 @@
+﻿@using Twitter.WebApplication.Models
+@using PagedList.Mvc;
+@model PagedList.IPagedList<TweetOutputModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="messages">
+
+</div>
+
+@foreach (var tweet in Model)
+{
+    @Html.Partial("~/Views/Shared/_Tweet.cshtml", tweet)
+}
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

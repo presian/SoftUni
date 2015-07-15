@@ -1,0 +1,25 @@
+﻿@using Twitter.WebApplication.Models
+@model TweetInputModel
+
+@{
+    ViewBag.Title = "Add Tweet";
+}
+
+@using (Html.BeginForm("AddTweet", "Tweets",new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new {role = "form", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Text, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Text, new {@class = "form-control"})
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+            @Html.ValidationMessageFor(m => m.Text, "", new { @class = "text-danger", id = "text" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10 col-md-offset-2">
+            <input type="submit" name="addTweet" value="Add Tweet" id="addTweet" class="btn btn-default"/>
+        </div>
+    </div>
+}

@@ -1,0 +1,16 @@
+﻿@Html.Partial("~/Views/Shared/_Index.cshtml")
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $.connection.hub.start();
+            var noty = $.connection.notifiaction;
+            noty.client.addTweet = addTweet;
+        });
+
+        function addTweet(id) {
+            var result = $('<div>').load('/Tweets/LoadTweetPartial?id=' + id);
+            $('#messages').prepend(result);
+        }
+    </script>
+}

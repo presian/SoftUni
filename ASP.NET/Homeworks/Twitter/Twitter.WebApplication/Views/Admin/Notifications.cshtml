@@ -1,0 +1,7 @@
+﻿@model IQueryable<Twitter.WebApplication.Models.NotificationOutputModel>
+
+@(Html.Infragistics()
+    .Grid(Model)
+    .DataBind()
+    .Render()
+)

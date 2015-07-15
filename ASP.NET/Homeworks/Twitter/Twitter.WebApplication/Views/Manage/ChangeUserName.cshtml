@@ -1,0 +1,24 @@
+﻿@model  Twitter.WebApplication.Models.ChangeUserNameViewModel
+@{
+    ViewBag.Title = "Change UserName";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("ChangeUserName", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+@*    @Html.ValidationSummary(Model.Username, new { @class = "text-danger" })*@
+    <div class="form-group">
+@*        @Html.LabelForModel(Model.Username, new { @class = "col-md-2 control-label" })*@
+        <div class="col-md-10 col-md-offset-2">
+            @Html.EditorForModel(Model.Username, new { @class = "form-control" })
+</div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Change username" class="btn btn-default" />
+        </div>
+    </div>
+}

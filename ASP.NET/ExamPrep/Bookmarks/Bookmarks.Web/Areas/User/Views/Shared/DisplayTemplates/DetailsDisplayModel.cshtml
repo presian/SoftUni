@@ -1,0 +1,44 @@
+﻿@model Bookmarks.Web.Areas.User.Models.DisplayModels.DetailsDisplayModel
+
+<h1>@Model.Title</h1>
+<p>
+    <strong>Category:</strong> @Model.Ctegory
+</p>
+
+@if (@Model.Description != null)
+{
+    <p>
+        <strong>Description:</strong> @Model.Description
+    </p>
+}
+
+<p>
+    <strong>Url:</strong> <a href="@Model.Url">@Model.Url</a>
+</p>
+
+Votes: <span id="votesCount">@Model.Votes</span>
+<button class="btn btn-default" onclick="addVote()">+</button>
+
+<h3>Comments</h3>
+
+@Html.Action("AddComment", "Home", new {area = "User"})
+
+@Html.DisplayFor(d=>d.Comments)
+
+<div id="newCommentsPlace">
+
+</div>
+
+<script>
+    function addVote() {
+        console.log('asdasd');
+        $.ajax({
+            type: "POST",
+            url: "/User/Home/AddVote/@Model.Id",
+            datatype: "html",
+            success: function (data) {
+                $('#votesCount').html(data);
+            }
+        });
+    }
+</script>

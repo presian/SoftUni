@@ -1,0 +1,21 @@
+﻿@using System.Web
+@using PagedList.Mvc;
+@using Bookmarks.Web.Models;
+@model PagedList.IPagedList<BookmarkDisplayModel>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css"/>
+
+
+@{
+    this.ViewBag.Area = HttpContext.Current.Request.RequestContext.RouteData.DataTokens["area"];
+}
+
+<div class="row">
+    @Html.DisplayFor(b => b)
+</div>
+
+<div class="row">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("SeeAll", "Home",
+            new { area = this.ViewBag.Area, page }))
+</div>

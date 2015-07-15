@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/kendo/kendo.common.core.min.css")
+    @Styles.Render("~/Content/kendo/kendo.common.min.css")
+    @Styles.Render("~/Content/kendo/kendo.materialblack.min.css")
+    @Styles.Render("~/Content/PagedList.css")
+    @Styles.Render("~/Content/bootstrap-theme.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+<body>
+    <div class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("MyTwitter", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("NewTweet", "AddTweet", "Tweets", new { area = "" }, null)</li>
+                        <li>
+                            <a href="/Notifications/Index">Notifications <span class="badge" id="notyCount"></span></a>
+                        </li>
+                        if (User.IsInRole("Administrator"))
+                         {
+                            <li>@Html.ActionLink("Administration", "Index", "Home", new {area = "Admin"}, null)</li>
+                         }
+
+                    }
+                    <li>@Html.ActionLink("Users", "Users", "Home", new {area = ""}, null)</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+<div class="container body-content">
+    @if (!User.IsInRole("Administrator"))
+    {
+        <p>Administrator -> user: admin; pass: admin123</p>
+    }
+    
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+</div>
+
+
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+    $(document).ready(function () {
+        $.connection.hub.start();
+        var noty = $.connection.notifiaction;
+        noty.client.refreshNotificationsCount = refreshNotificationsCount;
+        refreshNotificationsCount();
+    });
+
+    function refreshNotificationsCount() {
+        $('#notyCount').load('/Notifications/GetNotificationsCount');
+    }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{A8C0BC66-F367-4D11-AC3E-E5842DD90EDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{0F6E8921-5860-4130-9D3B-E1C98D9370E0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EBF575D9-AC79-4F8C-8414-DCBEB45559A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External Libraries", "External Libraries", "{60E1DD6E-4B06-4FD7-9153-50E3549019E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twitter.Models", "Twitter.Models\Twitter.Models.csproj", "{899A56F1-D4C1-412E-AF9F-9E247CE988B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twitter.Data", "Twitter.Data\Twitter.Data.csproj", "{F9C20EFA-A906-4549-9E9C-E49E41E0E0E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twitter.WebApplication", "Twitter.WebApplication\Twitter.WebApplication.csproj", "{0374004F-3EE5-4AB4-BE9E-F35B7E056687}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twitter.UnitOfWork", "Twitter.UnitOfWork\Twitter.UnitOfWork.csproj", "{27F7D247-8FFD-4DDF-919F-11CAB99F45FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twitter.Repositories", "Twitter.Repositories\Twitter.Repositories.csproj", "{9E64D629-0291-41A9-BC95-AACD72F0908E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A301378E-D202-4A4D-BA6A-70A32AAD5D82}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{899A56F1-D4C1-412E-AF9F-9E247CE988B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{899A56F1-D4C1-412E-AF9F-9E247CE988B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{899A56F1-D4C1-412E-AF9F-9E247CE988B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{899A56F1-D4C1-412E-AF9F-9E247CE988B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9C20EFA-A906-4549-9E9C-E49E41E0E0E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9C20EFA-A906-4549-9E9C-E49E41E0E0E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9C20EFA-A906-4549-9E9C-E49E41E0E0E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9C20EFA-A906-4549-9E9C-E49E41E0E0E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0374004F-3EE5-4AB4-BE9E-F35B7E056687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0374004F-3EE5-4AB4-BE9E-F35B7E056687}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0374004F-3EE5-4AB4-BE9E-F35B7E056687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0374004F-3EE5-4AB4-BE9E-F35B7E056687}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27F7D247-8FFD-4DDF-919F-11CAB99F45FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27F7D247-8FFD-4DDF-919F-11CAB99F45FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27F7D247-8FFD-4DDF-919F-11CAB99F45FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F7D247-8FFD-4DDF-919F-11CAB99F45FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E64D629-0291-41A9-BC95-AACD72F0908E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E64D629-0291-41A9-BC95-AACD72F0908E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E64D629-0291-41A9-BC95-AACD72F0908E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E64D629-0291-41A9-BC95-AACD72F0908E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{899A56F1-D4C1-412E-AF9F-9E247CE988B7} = {A8C0BC66-F367-4D11-AC3E-E5842DD90EDD}
+		{F9C20EFA-A906-4549-9E9C-E49E41E0E0E1} = {A8C0BC66-F367-4D11-AC3E-E5842DD90EDD}
+		{0374004F-3EE5-4AB4-BE9E-F35B7E056687} = {0F6E8921-5860-4130-9D3B-E1C98D9370E0}
+		{27F7D247-8FFD-4DDF-919F-11CAB99F45FD} = {A8C0BC66-F367-4D11-AC3E-E5842DD90EDD}
+		{9E64D629-0291-41A9-BC95-AACD72F0908E} = {A8C0BC66-F367-4D11-AC3E-E5842DD90EDD}
+	EndGlobalSection
+EndGlobal

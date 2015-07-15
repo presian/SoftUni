@@ -1,0 +1,10 @@
+﻿@using Twitter.WebApplication.Models
+@model IList<NotificationOutputModel>
+
+@foreach (var noty in Model)
+{
+    <p>@noty.Type</p>
+    <p>@noty.AuthorName</p>
+    <p>@noty.Content</p>
+    <hr/>
+}

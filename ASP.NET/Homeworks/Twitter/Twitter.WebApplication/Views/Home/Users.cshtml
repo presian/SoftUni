@@ -1,0 +1,32 @@
+﻿@using Twitter.WebApplication.Models
+@model PagedList.IPagedList<UserListOutputModel>
+
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Tweets</th>
+            <th>Following</th>
+            <th>Followers</th>
+            <th>Retweets</th>
+            <th>Replays</th>
+            <th>Favorites</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in @Model)
+    {
+        <tr class="info">
+            
+                <td><a href="/Users/PublicPage/@user.Username">@user.Username</a></td>
+                <td>@user.TweetsCount</td>
+                <td>@user.FollowingCount</td>
+                <td>@user.FollowrsCount</td>
+                <td>@user.ReTweetCount</td>
+                <td>@user.ReplayCount</td>
+                <td>@user.FavoritesCount</td>
+            
+        </tr>
+    }
+    </tbody>
+</table> 

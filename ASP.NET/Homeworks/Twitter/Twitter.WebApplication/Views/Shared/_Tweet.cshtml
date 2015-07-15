@@ -1,0 +1,17 @@
+﻿@model Twitter.WebApplication.Models.TweetOutputModel
+
+<div class="panel panel-primary">
+    <div class="panel-heading">@Model.AuthorName</div>
+    <div class="panel-body">
+        @Model.Text
+    </div>
+    <div class="panel-footer">
+        <div class="btn-group btn-group-justified">
+            <a href="#" class="btn btn-primary">Retweet <span class="badge">@Model.RetweetsCount</span></a>
+            <a href="#" class="btn btn-primary">Favorite <span class="badge">@Model.FavoritesCount</span></a>
+            <a href="#" class="btn btn-primary">Replay <i class="glyphicon glyphicon-repeat"></i></a>
+            <a href="#" class="btn btn-primary">Report <i class="glyphicon glyphicon-ban-circle"></i></a>
+            <a href="#" class="btn btn-primary">Share <i class="glyphicon glyphicon-share"></i></a>
+        </div>
+    </div>
+</div>

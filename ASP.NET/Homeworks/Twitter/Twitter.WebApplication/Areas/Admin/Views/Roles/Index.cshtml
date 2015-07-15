@@ -1,0 +1,65 @@
+﻿@using Kendo.Mvc.UI
+@using Twitter.WebApplication.Areas.Admin.Models
+@model IQueryable<RoleEditModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@(Html.Kendo()
+    .Grid(Model)
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(r => r.Id).Width(400);
+        columns.Bound(r => r.Name).Width(400);
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(172);
+    })
+    .ToolBar(toolbar => toolbar.Create())
+    .HtmlAttributes(new { style = "height: 380px;" })
+    .Scrollable()
+    .Groupable()
+    .Sortable()
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable(pageable => pageable
+        .Refresh(true)
+        .PageSizes(true)
+        .ButtonCount(5))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Batch(true)
+        .PageSize(5)
+        .ServerOperation(false)
+        .Events(events => events.Error("error_handler"))
+        .Model(model =>
+        {
+            model.Id(r => r.Id);
+            model.Field(r => r.Id).Editable(false);
+        })
+            .Create("CreateRole", "Roles")
+            .Read(read => read.Action("GetPagedRoles", "Roles"))
+            .Update(c => c.Action("UpdateRole", "Roles"))
+            .Destroy("DeleteRole", "Roles")
+      ))
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/kendo");
+    <script type="text/javascript">
+            function error_handler(e) {
+                if (e.errors) {
+                    var message = "Errors:\n";
+                    $.each(e.errors, function (key, value) {
+                        if ('errors' in value) {
+                            $.each(value.errors, function () {
+                                message += this + "\n";
+                            });
+                        }
+                    });
+                    alert(message);
+                }
+            }
+    </script>
+}

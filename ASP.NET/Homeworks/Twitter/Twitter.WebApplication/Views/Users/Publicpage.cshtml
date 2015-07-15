@@ -1,0 +1,24 @@
+﻿@using Twitter.WebApplication.Models
+@model PublicPageOutputModel
+<table class="table table-striped table-hover ">
+    <thead>
+        <tr>
+            <th>Tweets</th>
+            <th>Following</th>
+            <th>Followers</th>
+            <th>Favorites</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr class="info">
+        <td>@Model.TweetsCount</td>
+        <td>@Model.FollowingCount</td>
+        <td>@Model.FollowersCount</td>
+        <td>@Model.FavoritesCount</td>
+    </tr>
+    </tbody>
+</table> 
+@foreach (var tweet in Model.Tweets)
+{
+    @Html.Partial("_Tweet", tweet)
+}

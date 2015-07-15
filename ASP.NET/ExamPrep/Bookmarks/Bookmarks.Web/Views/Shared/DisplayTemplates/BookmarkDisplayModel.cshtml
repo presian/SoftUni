@@ -1,0 +1,16 @@
+﻿@using Bookmarks.Web.Models
+@model BookmarkDisplayModel
+
+
+<div class="col-md-4">
+    <h4>@Model.Title</h4>
+    @if (@Model.Description != null)
+    {
+        <p>@Model.Description</p>
+    }
+    
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Details", "Details", "Home", new {area = this.ViewBag.Area, id = Model.Id}, new {@class = "btn btn-default"})
+    }
+</div>
