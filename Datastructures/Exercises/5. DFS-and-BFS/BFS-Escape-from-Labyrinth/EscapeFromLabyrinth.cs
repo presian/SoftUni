@@ -33,26 +33,25 @@ public class EscapeFromLabyrinth
     static string FindShortestPathToEcit()
     {
         var queue = new Queue<Point>();
-        var currnetCell = FindStartPosition();
-        if (currnetCell == null)
+        var startPoint = FindStartPosition();
+        if (startPoint == null)
         {
             return null;
         }
 
-        queue.Enqueue(currnetCell);
+        queue.Enqueue(startPoint);
         while (queue.Count > 0)
         {
             var currentCell = queue.Dequeue();
             if (IsExit(currentCell))
             {
-                return TracePathBack(currnetCell);
+                return TracePathBack(currentCell);
             }
 
             TryDirection(queue, currentCell, "U", 0, -1);
             TryDirection(queue, currentCell, "R", +1, 0);
             TryDirection(queue, currentCell, "D", 0, +1);
             TryDirection(queue, currentCell, "L", -1, 0);
-            
         }
 
         return null;
@@ -114,7 +113,7 @@ public class EscapeFromLabyrinth
         }
         
         var pathReversed = new StringBuilder(path.Length);
-        for (int i = 0; i < path.Length; i++)
+        for (int i = path.Length - 1; i >= 0; i--)
         {
             pathReversed.Append(path[i]);
         }
@@ -122,8 +121,25 @@ public class EscapeFromLabyrinth
         return pathReversed.ToString();
     }
 
+    static void ReadLabyrinth()
+    {
+        width = int.Parse(Console.ReadLine());
+        height = int.Parse(Console.ReadLine());
+        labyrinth = new char[height, width];
+        for (int i = 0; i < height; i++)
+        {
+            var currentRow = Console.ReadLine();
+
+            for (int j = 0; j < width; j++)
+            {
+                labyrinth[i, j] = currentRow[j];
+            }
+        }
+    }
+
     public static void Main()
     {
+        ReadLabyrinth();
         string shortestPathToExit = FindShortestPathToEcit();
         if (shortestPathToExit == null)
         {

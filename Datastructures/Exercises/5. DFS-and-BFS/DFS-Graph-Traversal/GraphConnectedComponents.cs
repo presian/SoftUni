@@ -26,7 +26,6 @@ public class GraphConnectedComponents
 //        DFS(0);
 //        Console.WriteLine();
         FindGraphConnectedComponents();
-        Console.WriteLine();
     }
 
     public static void DFS(int startPoint)
@@ -49,7 +48,7 @@ public class GraphConnectedComponents
         {
             if (!visited[i])
             {
-                Console.Write("Connected component: ");
+                Console.Write("Connected component:");
                 DFS(i);
                 Console.WriteLine();
             }
