@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindRoot", "FindRoot\FindRoot.csproj", "{3E5AC0B3-99FC-485C-9D1B-BFD9B6035259}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1.FindRoot", "FindRoot\1.FindRoot.csproj", "{3E5AC0B3-99FC-485C-9D1B-BFD9B6035259}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2.RoundDance", "RoundDance\2.RoundDance.csproj", "{A232D21A-B16E-4D6D-A65E-3F8552CEA8F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{3E5AC0B3-99FC-485C-9D1B-BFD9B6035259}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E5AC0B3-99FC-485C-9D1B-BFD9B6035259}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E5AC0B3-99FC-485C-9D1B-BFD9B6035259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A232D21A-B16E-4D6D-A65E-3F8552CEA8F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A232D21A-B16E-4D6D-A65E-3F8552CEA8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A232D21A-B16E-4D6D-A65E-3F8552CEA8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A232D21A-B16E-4D6D-A65E-3F8552CEA8F0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

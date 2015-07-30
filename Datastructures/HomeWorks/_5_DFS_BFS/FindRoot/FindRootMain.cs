@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
 
-    class Program
+    static class FindRootMain
     {
         static void Main()
         {
