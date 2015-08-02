@@ -7,9 +7,10 @@
     {
         static void Main()
         {
+            var nodesCount = int.Parse(Console.ReadLine());
             var edgesCount = int.Parse(Console.ReadLine());
 
-            bool[] hasParent = new bool[edgesCount + 1];
+            bool[] hasParent = new bool[nodesCount];
             var tree = new int[edgesCount, 2];
 
             for (int i = 0; i < edgesCount; i++)
@@ -21,8 +22,8 @@
 
                 hasParent[pair[1]] = true;
             }
+
             Console.WriteLine(GetResult(hasParent));
-            
         }
 
         private static string GetResult(bool[] hasParent)
