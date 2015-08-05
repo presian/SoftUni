@@ -79,7 +79,6 @@
                 maxPath = count;
             }
             
-
             return count-1;
         }
     }
