@@ -1,8 +1,6 @@
 ﻿namespace AATree
 {
     using System;
-    using System.Collections.Generic;
-
     public class AaTree<TKey, TValue> where TKey : IComparable<TKey>
     {
         public class Node
@@ -184,19 +182,22 @@
             if (node == this.sentinel)
             {
                 node = new Node(key, value, this.sentinel);
+                return true;
             }
 
             int diff = key.CompareTo(node.Key);
             if (diff > 0)
             {
-                if (!this.Insert(ref node, key, value))
+                var left = node.Left;
+                if (!this.Insert(ref left, key, value))
                 {
                     return false;
                 }
             }
             else if (diff < 0)
             {
-                if (!this.Insert(ref node, key, value))
+                var right = node.Right;
+                if (!this.Insert(ref right, key, value))
                 {
                     return false;
                 }
@@ -262,6 +263,5 @@
 
             return true;
         }
-
     }
 }
