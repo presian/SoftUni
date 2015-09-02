@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentsAndCourses", "StudentsAndCourses\StudentsAndCourses.csproj", "{0D85D93A-3B65-45BB-815D-1194D6FF87DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1.StudentsAndCourses", "StudentsAndCourses\1.StudentsAndCourses.csproj", "{0D85D93A-3B65-45BB-815D-1194D6FF87DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2.BiDictionary", "BiDictionary\2.BiDictionary.csproj", "{43F965C2-3ECE-42DC-944E-A93C2F2E02FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0D85D93A-3B65-45BB-815D-1194D6FF87DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D85D93A-3B65-45BB-815D-1194D6FF87DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D85D93A-3B65-45BB-815D-1194D6FF87DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43F965C2-3ECE-42DC-944E-A93C2F2E02FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43F965C2-3ECE-42DC-944E-A93C2F2E02FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43F965C2-3ECE-42DC-944E-A93C2F2E02FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43F965C2-3ECE-42DC-944E-A93C2F2E02FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
