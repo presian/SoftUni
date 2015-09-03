@@ -38,7 +38,7 @@
             Print(distancesSofiaVarnaAgain);
         }
 
-        static void Print(IEnumerable list)
+        static void Print(IEnumerable<int> list)
         {
             Console.WriteLine($"[{string.Join(", ", list)}]");
         }

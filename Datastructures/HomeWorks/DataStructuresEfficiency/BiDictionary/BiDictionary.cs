@@ -67,7 +67,6 @@
             return this.SearchByTwo(keyTwo);
         }
 
-
         public bool Add(TK1 keyOne, TK2 keyTwo, T value)
         {
             return this.Insert(keyOne: keyOne, keyTwo: keyTwo, value: value);
@@ -92,8 +91,24 @@
                 }
                 else
                 {
-                    this.ByFirstKey.Add(keyOne, new List<T> { value });
-                    this.BySecondKey.Add(keyTwo, new List<T> { value });
+                    if (this.ByFirstKey.ContainsKey(keyOne))
+                    {
+                        this.ByFirstKey[keyOne].Add(value);
+                    }
+                    else
+                    {
+                        this.ByFirstKey.Add(keyOne, new List<T> { value });
+                    }
+
+                    if (this.BySecondKey.ContainsKey(keyTwo))
+                    {
+                        this.BySecondKey[keyTwo].Add(value);
+                    }
+                    else
+                    {
+                        this.BySecondKey.Add(keyTwo, new List<T> { value });
+                    }
+
                     this.ByAllKeys.Add(key, new List<T> { value });
                 }
 
@@ -111,11 +126,16 @@
             try
             {
                 var key = new Tuple<TK1, TK2>(keyOne, keyTwo);
-                if (this.ByAllKeys.ContainsKey(key))
+                List<T> values;
+                if (this.ByAllKeys.TryGetValue(key, out values))
                 {
+                    foreach (var singelValue in values)
+                    {
+                        this.ByFirstKey[keyOne].Remove(singelValue);
+                        this.BySecondKey[keyTwo].Remove(singelValue);
+                    }
+
                     this.ByAllKeys.Remove(key);
-                    this.ByFirstKey.Remove(keyOne);
-                    this.BySecondKey.Remove(keyTwo);
 
                     return true;
                 }
@@ -130,25 +150,40 @@
 
         private IEnumerable<T> Search(TK1 keyOne, TK2 keyTwo)
         {
-                var key = new Tuple<TK1, TK2>(keyOne, keyTwo);
-                var resultList = new List<T>();
-                this.ByAllKeys.TryGetValue(key, out resultList);
-                
-                return resultList;
+            var key = new Tuple<TK1, TK2>(keyOne, keyTwo);
+            var list = new List<T>();
+            this.ByAllKeys.TryGetValue(key, out list);
+            var resultList = new List<T>();
+            if (list != null)
+            {
+                resultList.AddRange(list);
+            }
+
+            return resultList;
         }
 
         private IEnumerable<T> SearchByOne(TK1 key)
         {
+            var list = new List<T>();
+            this.ByFirstKey.TryGetValue(key, out list);
             var resultList = new List<T>();
-            this.ByFirstKey.TryGetValue(key, out resultList);
+            if (list != null)
+            {
+                resultList.AddRange(list);
+            }
 
             return resultList;
         }
 
         private IEnumerable<T> SearchByTwo(TK2 key)
         {
+            var list = new List<T>();
+            this.BySecondKey.TryGetValue(key, out list);
             var resultList = new List<T>();
-            this.BySecondKey.TryGetValue(key, out resultList);
+            if (list != null)
+            {
+                resultList.AddRange(list);
+            }
 
             return resultList;
         }
