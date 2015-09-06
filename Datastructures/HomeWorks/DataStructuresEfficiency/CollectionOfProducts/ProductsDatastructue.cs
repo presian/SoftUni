@@ -92,7 +92,9 @@
                 this.ProductsByTitle[product.Title].Remove(product.Id);
                 this.ProductsBySupplier[product.Supplier][product.Price].Remove(product);
                 this.ProductsByTitleAndPrice[new Tuple<string, decimal>(product.Title, product.Price)].Remove(product.Id);
-                this.Count++;
+                this.Count--;
+
+                return true;
             }
 
             return false;
@@ -178,7 +180,6 @@
             }
         }
 
-
         public bool Add(string title, decimal price, string supplier)
         {
             return this.Insert(title, price, supplier);
@@ -218,7 +219,5 @@
         {
             return this.SearchBySupplierAndPriceRange(supplier, startPrice, endPrice);
         } 
-
-
     }
 }
