@@ -9,9 +9,11 @@ public class PersonCollection : IPersonCollection
     private Dictionary<string, Person> EmailToPerson { get; set; }
     private Dictionary<string, OrderedDictionary<string, Person>> TownToPerson { get; set; }
     private Dictionary <string, SortedDictionary<string, Person>> EmailDomainToPersons{ get; set; }
-    private Dictionary<string, OrderedMultiDictionary<string, Person>> TownToPersonByNames { get; set; }
+
+    private Dictionary<string, SortedSet<Person>> TownToPersonByNames { get; set; }
+
     private OrderedDictionary<int, OrderedDictionary<string, Person>> AgeToPerson { get; set; } 
-    private OrderedDictionary<int, OrderedMultiDictionary<string, Person>> TownToPersonByAge { get; set; }
+    private Dictionary<string, OrderedDictionary<int, SortedSet<Person>>> TownToPersonByAge { get; set; }
 
 
     public PersonCollection()
@@ -21,13 +23,14 @@ public class PersonCollection : IPersonCollection
         this.AgeToPerson = new OrderedDictionary<int, OrderedDictionary<string, Person>>();
 
         this.EmailDomainToPersons = new Dictionary<string, SortedDictionary<string, Person>>();
-        this.TownToPersonByNames = new Dictionary<string, OrderedMultiDictionary<string, Person>>();
-        this.TownToPersonByAge = new OrderedDictionary<int, OrderedMultiDictionary<string, Person>>();
+        this.TownToPersonByNames = new Dictionary<string, SortedSet<Person>>();
+        this.TownToPersonByAge = new Dictionary<string, OrderedDictionary<int, SortedSet<Person>>>();
         this.conunt = 0;
     }
 
     public bool AddPerson(string email, string name, int age, string town)
     {
+        // make new person
         var newPerson = new Person
         {
             Email = email,
@@ -36,10 +39,14 @@ public class PersonCollection : IPersonCollection
             Town = town
         };
 
+
+        // add if not exist
         if (!this.EmailToPerson.ContainsKey(newPerson.Email))
         {
+            // add to main dict
             this.EmailToPerson.Add(newPerson.Email, newPerson);
 
+            // add to town_person dict
             if (this.TownToPerson.ContainsKey(newPerson.Town))
             {
                 this.TownToPerson[newPerson.Town].Add(newPerson.Email, newPerson);
@@ -68,22 +75,31 @@ public class PersonCollection : IPersonCollection
                 this.EmailDomainToPersons.Add(emailDomain, new SortedDictionary<string, Person>(){ { newPerson.Email, newPerson}});
             }
 
-            if (this.TownToPersonByNames.ContainsKey(newPerson.Name))
+            var nameTownKey = newPerson.Name + newPerson.Town;
+            if (this.TownToPersonByNames.ContainsKey(nameTownKey))
             {
-                this.TownToPersonByNames[newPerson.Name].Add(newPerson.Town, newPerson);
+                this.TownToPersonByNames[nameTownKey].Add(newPerson);
             }
             else
             {
-                this.TownToPersonByNames.Add(newPerson.Name, new OrderedMultiDictionary<string, Person>(true) { {newPerson.Town, newPerson} });
+                this.TownToPersonByNames.Add(nameTownKey, new SortedSet<Person>() {newPerson});
             }
 
-            if (this.TownToPersonByAge.ContainsKey(newPerson.Age))
+            if (this.TownToPersonByAge.ContainsKey(newPerson.Town))
             {
-                this.TownToPersonByAge[newPerson.Age].Add(newPerson.Town, newPerson);
+                if (this.TownToPersonByAge[newPerson.Town].ContainsKey(newPerson.Age))
+                {
+                    this.TownToPersonByAge[newPerson.Town][newPerson.Age].Add(newPerson);
+                }
+                else
+                {
+                    this.TownToPersonByAge[newPerson.Town]
+                        .Add(newPerson.Age, new SortedSet<Person>() {newPerson});
+                }
             }
             else
             {
-                this.TownToPersonByAge.Add(newPerson.Age, new OrderedMultiDictionary<string, Person>(true) { {newPerson.Town, newPerson} });
+                this.TownToPersonByAge.Add(newPerson.Town, new OrderedDictionary<int, SortedSet<Person>>() { {newPerson.Age, new SortedSet<Person>() { newPerson} } });
             }
 
             this.conunt++;
@@ -112,8 +128,8 @@ public class PersonCollection : IPersonCollection
             this.AgeToPerson[deleted.Age].Remove(deleted.Email);
             var emailDomain = "@" + deleted.Email.Split(new[] {"@"}, StringSplitOptions.RemoveEmptyEntries)[1];
             this.EmailDomainToPersons[emailDomain].Remove(deleted.Email);
-            this.TownToPersonByAge[deleted.Age].Remove(deleted.Town, deleted);
-            this.TownToPersonByNames[deleted.Name].Remove(deleted.Town, deleted);
+            this.TownToPersonByAge[deleted.Town][deleted.Age].Remove(deleted);
+            this.TownToPersonByNames[deleted.Name + deleted.Town].Remove(deleted);
             this.conunt--;
 
             return true;
@@ -138,9 +154,10 @@ public class PersonCollection : IPersonCollection
 
     public IEnumerable<Person> FindPersons(string name, string town)
     {
-        if (this.TownToPersonByNames.ContainsKey(name))
+        var key = name + town;
+        if (this.TownToPersonByNames.ContainsKey(key))
         {
-            return this.TownToPersonByNames[name][town].OrderBy(p => p.Email);
+            return this.TownToPersonByNames[key];
         }
         else
         {
@@ -158,9 +175,14 @@ public class PersonCollection : IPersonCollection
 
     public IEnumerable<Person> FindPersons(int startAge, int endAge, string town)
     {
-        return this.TownToPersonByAge.Range(startAge, true, endAge, true)
-            .SelectMany(p => p.Value[town])
-            .OrderBy(p => p.Age)
-            .ThenBy(p => p.Email);
+        OrderedDictionary<int, SortedSet<Person>> townResult;
+        this.TownToPersonByAge.TryGetValue(town, out townResult);
+        if (townResult != null)
+        {
+            return townResult
+                .Range(startAge, true, endAge, true)
+                .SelectMany(p => p.Value);
+        }
+        return new List<Person>();
     }
 }

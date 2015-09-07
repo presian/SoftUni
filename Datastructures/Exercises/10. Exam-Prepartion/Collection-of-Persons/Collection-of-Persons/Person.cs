@@ -10,13 +10,6 @@ public class Person : IComparable<Person>
 
     public int CompareTo(Person other)
     {
-        if (this == other)
-        {
-            return 0;
-        }
-        else
-        {
-            return String.Compare(this.Email, other.Email, StringComparison.Ordinal);
-        }
+            return this.Email.CompareTo(other.Email);
     }
 }
