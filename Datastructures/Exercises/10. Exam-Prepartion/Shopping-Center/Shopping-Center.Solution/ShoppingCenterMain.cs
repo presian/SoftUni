@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+using Shopping_Center;
 
 class ShoppingCenterMain
 {
@@ -8,7 +9,7 @@ class ShoppingCenterMain
     {
         Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
-        var center = new ShoppingCenterSlow();
+        var center = new MyShoppingCenter();
 
         int commands = int.Parse(Console.ReadLine());
         for (int i = 1; i <= commands; i++)
