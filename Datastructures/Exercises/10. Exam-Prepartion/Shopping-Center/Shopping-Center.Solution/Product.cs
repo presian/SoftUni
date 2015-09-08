@@ -9,25 +9,27 @@ class Product : IComparable<Product>
 
     public override string ToString()
     {
-        return String.Format("{{{0};{1};{2:0.00}}}",
-            this.Name, this.Producer, this.Price);
+        return $"{{{this.Name};{this.Producer};{this.Price:0.00}}}";
     }
 
     public int CompareTo(Product other)
     {
-        if (this == other)
+        var nameComareResult = this.Name.CompareTo(other.Name);
+        if (nameComareResult == 0)
         {
-            return 0;
+            var producerCompareResult = this.Producer.CompareTo(other.Producer);
+            if (producerCompareResult == 0)
+            {
+                return this.Price.CompareTo(other.Price);
+            }
+            else
+            {
+                return producerCompareResult;
+            }
         }
-        int result = this.Name.CompareTo(other.Name);
-        if (result == 0)
+        else
         {
-            result = this.Producer.CompareTo(other.Producer);
+            return nameComareResult;
         }
-        if (result == 0)
-        {
-            result = this.Price.CompareTo(other.Price);
-        }
-        return result;
     }
 }
