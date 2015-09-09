@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Text;
     using System.Threading;
     using Wintellect.PowerCollections;
 
@@ -27,19 +26,18 @@
     }
 
 
-    class Product : IComparable<global::Product>
+    public class Product : IComparable<Product>
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Producer { get; set; }
-        public bool IsDeleted { get; set; }
 
         public override string ToString()
         {
             return $"{{{this.Name};{this.Producer};{this.Price:0.00}}}";
         }
 
-        public int CompareTo(global::Product other)
+        public int CompareTo(Product other)
         {
             var nameComareResult = this.Name.CompareTo(other.Name);
             if (nameComareResult == 0)
@@ -61,7 +59,7 @@
         }
     }
 
-    class MyShoppingCenter
+   public class MyShoppingCenter
     {
         private const string PRODUCT_ADDED = "Product added";
         private const string X_PRODUCTS_DELETED = " products deleted";
@@ -86,7 +84,6 @@
         {
             var newProduct = new Product
             {
-                IsDeleted = false,
                 Name = name,
                 Price = decimal.Parse(price),
                 Producer = producer
@@ -106,15 +103,15 @@
                 }); 
             }
 
-            var namePriceKey = $"{newProduct.Name}{newProduct.Producer}";
+            var nameProducerKey = $"{newProduct.Name}{newProduct.Producer}";
 
-            if (this.ProductsByNameAndProducer.ContainsKey(namePriceKey))
+            if (this.ProductsByNameAndProducer.ContainsKey(nameProducerKey))
             {
-                this.ProductsByNameAndProducer[namePriceKey].Add(newProduct);
+                this.ProductsByNameAndProducer[nameProducerKey].Add(newProduct);
             }
             else
             {
-                this.ProductsByNameAndProducer.Add(namePriceKey, new OrderedBag<Product>() { {newProduct} });
+                this.ProductsByNameAndProducer.Add(nameProducerKey, new OrderedBag<Product>() { {newProduct} });
             }
             
 
@@ -123,18 +120,31 @@
 
         private string FindProductsByName(string name)
         {
-
-            return this.PrintProducts(this.ProductsByName[name]);
+            if (this.ProductsByName.ContainsKey(name))
+            {
+                return this.PrintProducts(this.ProductsByName[name]);
+            }
+            else
+            {
+                return this.PrintProducts(new List<Product>());
+            }
         }
 
         private string FindProductsByProducer(string producer)
         {
-            return this.PrintProducts(this.ProductsByProducer[producer]);
+            if (this.ProductsByProducer.ContainsKey(producer))
+            {
+                return this.PrintProducts(this.ProductsByProducer[producer]);
+            }
+            else
+            {
+                return this.PrintProducts(new List<Product>());
+            }
         }
 
         private string FindProductsByPriceRange(string from, string to)
         {
-            return this.PrintProducts(this.ProductsByPrice.Range(int.Parse(from), true, int.Parse(to), true)
+            return this.PrintProducts(this.ProductsByPrice.Range(decimal.Parse(from), true, decimal.Parse(to), true)
                 .Values
                 .SelectMany(p => p)
                 .OrderBy(p => p.Name)
@@ -166,7 +176,9 @@
                     this.ProductsByName.Remove(product.Name, product);
                     this.ProductsByPrice[product.Price].Remove(product);
                     this.ProductsByProducer[product.Producer].Remove(product);
-                }    
+                }
+
+                this.ProductsByNameAndProducer.Remove(key);
             }
 
             if (count == 0)
@@ -179,16 +191,24 @@
 
         private string DeleteProductsByProducer(string producer)
         {
-            var deleted = this.ProductsByProducer[producer];
-            var count = deleted.Count;
-            foreach (var product in deleted)
+            if (this.ProductsByProducer.ContainsKey(producer))
             {
-                this.ProductsByName.Remove(product.Name, product);
-                this.ProductsByPrice[product.Price].Remove(product);
+                var deleted = this.ProductsByProducer[producer];
+                var count = deleted.Count;
+                foreach (var product in deleted)
+                {
+                    this.ProductsByName.Remove(product.Name, product);
+                    this.ProductsByPrice[product.Price].Remove(product);
+                }
+
+                this.ProductsByProducer.Remove(producer);
+                return $"{count}{X_PRODUCTS_DELETED}";
             }
-            
-            this.ProductsByProducer.Remove(producer);
-            return $"{count}{X_PRODUCTS_DELETED}";
+            else
+            {
+                return NO_PRODUCTS_FOUND;
+            }
+           
         }
 
         public string ProcessCommand(string command)
