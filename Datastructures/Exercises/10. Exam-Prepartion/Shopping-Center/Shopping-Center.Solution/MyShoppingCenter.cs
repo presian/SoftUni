@@ -8,26 +8,26 @@
     using System.Threading;
     using Wintellect.PowerCollections;
 
-    class ShoppingCenterMain
-    {
-        public static void Main()
-        {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+//    class ShoppingCenterMain
+//    {
+//        public static void Main()
+//        {
+//            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+//
+//            var center = new MyShoppingCenter();
+//
+//            int commands = int.Parse(Console.ReadLine());
+//            for (int i = 1; i <= commands; i++)
+//            {
+//                string command = Console.ReadLine();
+//                string commandResult = center.ProcessCommand(command);
+//                Console.WriteLine(commandResult);
+//            }
+//        }
+//    }
 
-            var center = new MyShoppingCenter();
 
-            int commands = int.Parse(Console.ReadLine());
-            for (int i = 1; i <= commands; i++)
-            {
-                string command = Console.ReadLine();
-                string commandResult = center.ProcessCommand(command);
-                Console.WriteLine(commandResult);
-            }
-        }
-    }
-
-
-    class Product : IComparable<global::Product>
+    public class Product : IComparable<Product>
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
@@ -39,7 +39,7 @@
             return $"{{{this.Name};{this.Producer};{this.Price:0.00}}}";
         }
 
-        public int CompareTo(global::Product other)
+        public int CompareTo(Product other)
         {
             var nameComareResult = this.Name.CompareTo(other.Name);
             if (nameComareResult == 0)
@@ -61,7 +61,7 @@
         }
     }
 
-    class MyShoppingCenter
+    public class MyShoppingCenter
     {
         private const string PRODUCT_ADDED = "Product added";
         private const string X_PRODUCTS_DELETED = " products deleted";
