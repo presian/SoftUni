@@ -70,7 +70,7 @@ public class UnitTestsShoppingCenter
     }
 
     [TestMethod]
-    [Timeout(100)]
+    [Timeout(300)]
     public void Test006_Add_DeleteByNameAndProducer()
     {
         ExecuteTest("test.006.in.txt", "test.006.out.txt");
