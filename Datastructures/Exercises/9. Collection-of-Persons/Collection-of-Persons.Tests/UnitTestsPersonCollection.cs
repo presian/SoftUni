@@ -9,8 +9,8 @@ public class UnitTestsPersonCollection
     [TestInitialize]
     public void TestInitialize()
     {
-        //this.persons = new PersonCollectionSlow();
-        this.persons = new PersonCollection();
+        this.persons = new PersonCollectionSlow();
+//        this.persons = new PersonCollection();
     }
 
     [TestMethod]
