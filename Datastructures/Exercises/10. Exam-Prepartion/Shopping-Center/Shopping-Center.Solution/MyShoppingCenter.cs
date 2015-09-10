@@ -154,7 +154,7 @@
 
         private string PrintProducts(IEnumerable<Product> products)
         {
-            var result = string.Join("\n", products);
+            var result = string.Join("\r\n", products);
             if (result.Length == 0)
             {
                 return NO_PRODUCTS_FOUND;
