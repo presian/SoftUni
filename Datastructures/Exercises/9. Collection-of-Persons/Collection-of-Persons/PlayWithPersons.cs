@@ -5,7 +5,7 @@ class PlayWithPersons
 {
     static void Main()
     {
-        var persons = new PersonCollection();
+        var persons = new PersonCollectionSlow();
         persons.AddPerson("pesho@gmail.com", "Pesho", 28, "Plovdiv");
         Console.WriteLine("Added a person. Count = " + persons.Count);
 

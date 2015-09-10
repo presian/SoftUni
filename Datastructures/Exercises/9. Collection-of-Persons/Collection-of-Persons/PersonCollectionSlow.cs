@@ -34,7 +34,7 @@ public class PersonCollectionSlow : IPersonCollection
         return true;
     }
 
-    public int Count => this.Count;
+    public int Count => this.count;
 
     public Person FindPerson(string email)
     {
@@ -61,7 +61,8 @@ public class PersonCollectionSlow : IPersonCollection
     public IEnumerable<Person> FindPersons(string emailDomain)
     {
         return this.Persons
-            .Where(p => p.Key.Contains(emailDomain))
+            .Where(p => p.Key.Contains("@" + emailDomain))
+            .OrderBy(p=>p.Value.Email)
             .Select(p => p.Value);
 
     }
@@ -70,6 +71,7 @@ public class PersonCollectionSlow : IPersonCollection
     {
         return this.Persons
             .Where(p => p.Value.Name == name && p.Value.Town == town)
+            .OrderBy(p => p.Value.Email)
             .Select(p => p.Value);
     }
 
@@ -77,15 +79,20 @@ public class PersonCollectionSlow : IPersonCollection
     {
         return this.Persons
             .Where(p => p.Value.Age >= startAge && p.Value.Age <= endAge)
+            .OrderBy(p => p.Value.Age)
+            .ThenBy(p => p.Value.Email)
             .Select(p => p.Value);
     }
 
     public IEnumerable<Person> FindPersons(
         int startAge, int endAge, string town)
     {
-        return
-            this.Persons
-                .Where(p => p.Value.Age >= startAge && p.Value.Age <= endAge && p.Value.Town == town)
+        return this.Persons
+                .Where(p => p.Value.Age >= startAge 
+                    && p.Value.Age <= endAge 
+                    && string.Equals(p.Value.Town, town))
+                .OrderBy(p => p.Value.Age)
+                .ThenBy(p => p.Value.Email)
                 .Select(p => p.Value);
     }
 }
