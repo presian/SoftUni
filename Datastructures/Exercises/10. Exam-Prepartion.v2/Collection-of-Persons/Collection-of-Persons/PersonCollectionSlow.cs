@@ -21,7 +21,7 @@ public class PersonCollectionSlow : IPersonCollection
             Name = name,
             Town = town
         };
-        if (this.Persons.Contains(person))
+        if (this.Persons.Any(p=>p.Email.Equals(email)))
         {
             return false;
         }
@@ -40,7 +40,8 @@ public class PersonCollectionSlow : IPersonCollection
 
     public bool DeletePerson(string email)
     {
-        var person = this.Persons.FirstOrDefault(p => p.Email == email);
+        var person = this.Persons
+            .FirstOrDefault(p => p.Email == email);
         if (person == null)
         {
             return false;
@@ -54,7 +55,7 @@ public class PersonCollectionSlow : IPersonCollection
     public IEnumerable<Person> FindPersons(string emailDomain)
     {
         return this.Persons
-            .Where(p => p.Email.Contains(emailDomain))
+            .Where(p => p.Email.Contains("@" + emailDomain))
             .OrderBy(p => p.Email);
     }
 
@@ -81,6 +82,8 @@ public class PersonCollectionSlow : IPersonCollection
         return this.Persons
             .Where(p => p.Town.Equals(town)
                         && p.Age >= startAge
-                        && p.Age <= endAge);
+                        && p.Age <= endAge)
+            .OrderBy(p=>p.Age)
+            .ThenBy(p=>p.Email);
     }
 }
