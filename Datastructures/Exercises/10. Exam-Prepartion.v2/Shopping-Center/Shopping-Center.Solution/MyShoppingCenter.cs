@@ -2,8 +2,28 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
+    using System.Threading;
     using Wintellect.PowerCollections;
+
+    class ShoppingCenterMain
+    {
+        public static void Main()
+        {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+            var center = new MyShoppingCenter();
+
+            int commands = int.Parse(Console.ReadLine());
+            for (int i = 1; i <= commands; i++)
+            {
+                string command = Console.ReadLine();
+                string commandResult = center.ProcessCommand(command);
+                Console.WriteLine(commandResult);
+            }
+        }
+    }
 
     public class Product : IComparable<Product>
     {
@@ -20,6 +40,10 @@
             this.Producer = producer;
         }
 
+        public override string ToString()
+        {
+            return $"{{{this.Name};{this.Producer};{this.Price:0.00}}}";
+        }
 
         public int CompareTo(Product other)
         {
@@ -41,8 +65,16 @@
     {
         private const string ProductAdded = "Product added";
         private const string X_ProductsDeleted = " products deleted";
-
         private const string NoProductsFound = "No products found";
+
+
+        public MyShoppingCenter()
+        {
+            this.ProductsByName = new Dictionary<string, OrderedBag<Product>>();
+            this.ProductsByProducer = new Dictionary<string, OrderedBag<Product>>();
+            this.ProductsByPrice = new OrderedDictionary<decimal, OrderedBag<Product>>();
+            this.ProductsByNameAndProducer = new Dictionary<string, OrderedBag<Product>>();
+        }
 
         public Dictionary<string, OrderedBag<Product>> ProductsByName { get; set; }
         public Dictionary<string, OrderedBag<Product>> ProductsByProducer { get; set; }
@@ -171,12 +203,15 @@
             return this.PrintResult(
                 this.ProductsByPrice
                 .Range(decimal.Parse(startPrice), true, decimal.Parse(endPrice), true)
-                .SelectMany(p=>p.Value));
+                .SelectMany(p=>p.Value)
+                .OrderBy(p=>p.Name)
+                .ThenBy(p=>p.Producer)
+                .ThenBy(p=>p.Price));
         }
 
         private string PrintResult(IEnumerable<Product> products)
         {
-            var result = string.Join("\n\r", products);
+            var result = string.Join("\n", products);
             if (result.Length > 0)
             {
                 return result;
