@@ -1,13 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Text;
+using Shopping_Center;
 
 [TestClass]
 public class UnitTestsShoppingCenter
 {
     private void ExecuteTest(string inputFileName, string outputFileName)
     {
-        var shoppingCenter = new ShoppingCenterFast();
+        var shoppingCenter = new MyShoppingCenter();
         var inputCommands = File.ReadAllLines(@"..\..\..\Judge-Tests\" + inputFileName);
         var output = new StringBuilder();
         int commandsCount = int.Parse(inputCommands[0]);
