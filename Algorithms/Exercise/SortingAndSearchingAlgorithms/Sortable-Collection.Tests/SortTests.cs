@@ -5,8 +5,8 @@
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-    using Sortable_Collection.Contracts;
-    using Sortable_Collection.Sorters;
+    using Contracts;
+    using Sorters;
 
     [TestClass]
     public class SortTests

@@ -5,11 +5,11 @@
     [TestClass]
     public class InterpolationSearchTests
     {
-        [TestMethod]
-        // TODO: Rename test method
-        public void TestMethod1()
-        {
-            // TODO: Add test logic here
-        }
+//        [TestMethod]
+//        // TODO: Rename test method
+//        public void TestMethod1()
+//        {
+//            // TODO: Add test logic here
+//        }
     }
 }
